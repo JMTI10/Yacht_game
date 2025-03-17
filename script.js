@@ -16,18 +16,18 @@ document.getElementById("rollDice").addEventListener("click", function() {
             dice.appendChild(faceDiv);
         });
         
-        // Ensure the dice are initially fully 3D
+        // Ensure the dice are always 3D from the start
         dice.style.transformStyle = "preserve-3d";
-        dice.style.position = "absolute";
         dice.style.width = "50px";
         dice.style.height = "50px";
+        dice.style.position = "absolute";
         
-        // Initial position above the table
+        // Set the dice's starting position above the table
         dice.style.top = "-100px";
         dice.style.opacity = "0";
         
-        // Apply full 3D rolling effect from the start
-        const initialRotation = `rotateX(${Math.random() * 720}deg) rotateY(${Math.random() * 720}deg)`;
+        // Apply full 3D effect immediately
+        const initialRotation = `rotateX(${Math.random() * 360}deg) rotateY(${Math.random() * 360}deg) rotateZ(${Math.random() * 360}deg)`;
         dice.style.transform = initialRotation;
         
         diceContainer.appendChild(dice);
@@ -39,7 +39,7 @@ document.getElementById("rollDice").addEventListener("click", function() {
             dice.style.left = `${Math.random() * 50 + 20}%`;
             
             // Apply continuous rolling effect while falling
-            const rollingRotation = `rotateX(${Math.random() * 1440}deg) rotateY(${Math.random() * 1440}deg)`;
+            const rollingRotation = `rotateX(${Math.random() * 1440}deg) rotateY(${Math.random() * 1440}deg) rotateZ(${Math.random() * 1440}deg)`;
             dice.style.transform = rollingRotation;
             
             setTimeout(() => {
