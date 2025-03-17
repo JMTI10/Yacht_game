@@ -44,19 +44,7 @@ body {
     transform-style: preserve-3d;
     transform: rotateX(0deg) rotateY(0deg);
     transition: transform 1s ease-out, top 1s ease-out, left 1s ease-out;
-    border-radius: 10px;
-    animation: fall 1s ease-out forwards;
-}
-
-@keyframes fall {
-    from {
-        transform: translateY(-200px) rotateX(0deg) rotateY(0deg);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0) rotateX(0deg) rotateY(0deg);
-        opacity: 1;
-    }
+    opacity: 1;
 }
 
 .dice div {
@@ -70,7 +58,8 @@ body {
     align-items: center;
     font-size: 20px;
     font-weight: bold;
-    border-radius: 10px;
+    border-radius: 10px; /* Smooth edges */
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 .front  { transform: translateZ(25px); }
