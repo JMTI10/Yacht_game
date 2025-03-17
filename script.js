@@ -16,27 +16,23 @@ document.getElementById("rollDice").addEventListener("click", function() {
             dice.appendChild(faceDiv);
         });
 
-        // Ensure dice are fully 3D before rendering
+        // Ensure dice are fully in 3D before rendering
         dice.style.transformStyle = "preserve-3d";
         dice.style.width = "50px";
         dice.style.height = "50px";
         dice.style.position = "absolute";
-
-        // Set dice's starting position above the table
         dice.style.top = "-100px";
         dice.style.opacity = "0";
-        dice.style.display = "none"; // Hide until ready
 
-        // Pre-set a strong 3D transformation before showing the dice
-        const initialRotation = `rotateX(${Math.random() * 360}deg) rotateY(${Math.random() * 360}deg) rotateZ(${Math.random() * 360}deg)`;
-        dice.style.transform = initialRotation;
+        // Pre-set a strong 3D transformation
+        dice.style.transform = `rotateX(${Math.random() * 360}deg) rotateY(${Math.random() * 360}deg) rotateZ(${Math.random() * 360}deg)`;
 
         diceContainer.appendChild(dice);
 
-        // Ensure the browser fully processes the 3D cube before showing it
+        // Wait until the browser confirms it's in 3D before starting animation
         requestAnimationFrame(() => {
             setTimeout(() => {
-                dice.style.display = "flex"; // Now it's fully 3D, show it
+                // Now the dice are guaranteed to be in 3D, start the animation
                 dice.style.transition = "transform 1.5s ease-out, top 1s ease-out, opacity 0.5s ease-in";
                 dice.style.opacity = "1";
                 dice.style.top = `${Math.random() * 50 + 20}%`;
@@ -57,7 +53,7 @@ document.getElementById("rollDice").addEventListener("click", function() {
                     ];
                     dice.style.transform = rotations[diceValue - 1];
                 }, 1200); // Ensure it fully settles after rolling
-            }, 50); // Slight delay to allow full 3D processing before animation
+            }, 100); // Small delay to let browser fully process 3D before animation
         });
     }
 });
