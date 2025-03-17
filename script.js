@@ -16,20 +16,21 @@ document.getElementById("rollDice").addEventListener("click", function() {
             dice.appendChild(faceDiv);
         });
         
-        // Initial fall animation with rolling effect
-        dice.style.transform = `translateY(-200px) rotateX(${Math.random() * 360}deg) rotateY(${Math.random() * 360}deg)`;
+        // Set initial position above the table and make dice invisible
+        dice.style.top = "-100px";
         dice.style.opacity = "0";
-        dice.style.transition = "transform 1s ease-out, opacity 0.5s ease-in";
+        dice.style.transform = `rotateX(${Math.random() * 720}deg) rotateY(${Math.random() * 720}deg)`;
         
         diceContainer.appendChild(dice);
         
         setTimeout(() => {
+            dice.style.transition = "transform 1.5s ease-out, top 1s ease-out, opacity 0.5s ease-in";
             dice.style.opacity = "1";
             dice.style.top = `${Math.random() * 50 + 20}%`;
             dice.style.left = `${Math.random() * 50 + 20}%`;
             
             // Apply continuous rolling effect while falling
-            dice.style.transform = `translateY(0px) rotateX(${Math.random() * 1080}deg) rotateY(${Math.random() * 1080}deg)`;
+            dice.style.transform = `rotateX(${Math.random() * 1440}deg) rotateY(${Math.random() * 1440}deg)`;
             
             setTimeout(() => {
                 // Final position and rotation
@@ -42,7 +43,7 @@ document.getElementById("rollDice").addEventListener("click", function() {
                     "rotateX(-90deg) rotateY(0deg)"
                 ];
                 dice.style.transform = rotations[diceValue - 1];
-            }, 1000); // Ensure it fully settles after rolling
+            }, 1200); // Ensure it fully settles after rolling
         }, 100);
     }
 });
