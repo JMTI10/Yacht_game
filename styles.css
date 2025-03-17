@@ -42,12 +42,12 @@ body {
     height: 50px;
     position: absolute;
     transform-style: preserve-3d;
-    transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
-    transition: transform 1.5s ease-out, top 1s ease-out, left 1s ease-out;
+    will-change: transform, opacity;
     opacity: 1;
     display: flex;
     justify-content: center;
     align-items: center;
+    perspective: 1000px;
 }
 
 .dice div {
@@ -63,6 +63,7 @@ body {
     font-weight: bold;
     border-radius: 10px; /* Smooth edges */
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+    transform-style: preserve-3d;
 }
 
 .front  { transform: translateZ(25px); }

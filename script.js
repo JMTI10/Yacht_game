@@ -1,7 +1,7 @@
 document.getElementById("rollDice").addEventListener("click", function() {
     const diceContainer = document.getElementById("diceContainer");
     diceContainer.innerHTML = ""; // Clear previous dice
-
+    
     const diceCount = 5;
     for (let i = 0; i < diceCount; i++) {
         const diceValue = Math.floor(Math.random() * 6) + 1;
@@ -16,45 +16,46 @@ document.getElementById("rollDice").addEventListener("click", function() {
             dice.appendChild(faceDiv);
         });
 
-        // Ensure the dice are always 3D from the start
+        // Ensure dice are fully 3D from the moment they appear
         dice.style.transformStyle = "preserve-3d";
         dice.style.width = "50px";
         dice.style.height = "50px";
         dice.style.position = "absolute";
-        dice.style.perspective = "1000px"; 
+        dice.style.perspective = "1000px";
+        dice.style.willChange = "transform, opacity";
 
-        // Set the dice's starting position above the table
+        // Set dice's starting position above the table
         dice.style.top = "-100px";
         dice.style.opacity = "0";
 
-        // Apply full 3D effect immediately before animation starts
-        const initialRotation = `rotateX(${Math.random() * 720}deg) rotateY(${Math.random() * 720}deg) rotateZ(${Math.random() * 720}deg)`;
-        dice.style.transform = initialRotation;
+        // Apply a forced 3D render before animation
+        dice.style.transform = `rotateX(${Math.random() * 360}deg) rotateY(${Math.random() * 360}deg) rotateZ(${Math.random() * 360}deg)`;
 
         diceContainer.appendChild(dice);
 
-        setTimeout(() => {
-            dice.style.transition = "transform 1.5s ease-out, top 1s ease-out, opacity 0.5s ease-in";
-            dice.style.opacity = "1";
-            dice.style.top = `${Math.random() * 50 + 20}%`;
-            dice.style.left = `${Math.random() * 50 + 20}%`;
-
-            // Apply continuous rolling effect while falling
-            const rollingRotation = `rotateX(${Math.random() * 1440}deg) rotateY(${Math.random() * 1440}deg) rotateZ(${Math.random() * 1440}deg)`;
-            dice.style.transform = rollingRotation;
-
+        requestAnimationFrame(() => {
             setTimeout(() => {
-                // Final position and rotation
-                const rotations = [
-                    "rotateX(0deg) rotateY(0deg)",
-                    "rotateX(180deg) rotateY(0deg)",
-                    "rotateX(0deg) rotateY(-90deg)",
-                    "rotateX(0deg) rotateY(90deg)",
-                    "rotateX(90deg) rotateY(0deg)",
-                    "rotateX(-90deg) rotateY(0deg)"
-                ];
-                dice.style.transform = rotations[diceValue - 1];
-            }, 1200); // Ensure it fully settles after rolling
-        }, 10); // Delay slightly to prevent transition override
+                dice.style.transition = "transform 1.5s ease-out, top 1s ease-out, opacity 0.5s ease-in";
+                dice.style.opacity = "1";
+                dice.style.top = `${Math.random() * 50 + 20}%`;
+                dice.style.left = `${Math.random() * 50 + 20}%`;
+
+                // Apply continuous rolling effect while falling
+                dice.style.transform = `rotateX(${Math.random() * 1440}deg) rotateY(${Math.random() * 1440}deg) rotateZ(${Math.random() * 1440}deg)`;
+
+                setTimeout(() => {
+                    // Final position and rotation
+                    const rotations = [
+                        "rotateX(0deg) rotateY(0deg)",
+                        "rotateX(180deg) rotateY(0deg)",
+                        "rotateX(0deg) rotateY(-90deg)",
+                        "rotateX(0deg) rotateY(90deg)",
+                        "rotateX(90deg) rotateY(0deg)",
+                        "rotateX(-90deg) rotateY(0deg)"
+                    ];
+                    dice.style.transform = rotations[diceValue - 1];
+                }, 1200); // Ensure it fully settles after rolling
+            }, 10); // Small delay to force full 3D rendering before animation starts
+        });
     }
 });
