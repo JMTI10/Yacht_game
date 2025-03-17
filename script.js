@@ -1,7 +1,7 @@
 document.getElementById("rollDice").addEventListener("click", function() {
     const diceContainer = document.getElementById("diceContainer");
     diceContainer.innerHTML = ""; // Clear previous dice
-    
+
     const diceCount = 5;
     for (let i = 0; i < diceCount; i++) {
         const diceValue = Math.floor(Math.random() * 6) + 1;
@@ -16,31 +16,33 @@ document.getElementById("rollDice").addEventListener("click", function() {
             dice.appendChild(faceDiv);
         });
 
-        // Ensure dice are fully 3D from the moment they appear
+        // Ensure dice are fully 3D before rendering
         dice.style.transformStyle = "preserve-3d";
         dice.style.width = "50px";
         dice.style.height = "50px";
         dice.style.position = "absolute";
-        dice.style.perspective = "1000px";
-        dice.style.willChange = "transform, opacity";
 
         // Set dice's starting position above the table
         dice.style.top = "-100px";
         dice.style.opacity = "0";
+        dice.style.display = "none"; // Hide until ready
 
-        // Apply a forced 3D render before animation
-        dice.style.transform = `rotateX(${Math.random() * 360}deg) rotateY(${Math.random() * 360}deg) rotateZ(${Math.random() * 360}deg)`;
+        // Pre-set a strong 3D transformation before showing the dice
+        const initialRotation = `rotateX(${Math.random() * 360}deg) rotateY(${Math.random() * 360}deg) rotateZ(${Math.random() * 360}deg)`;
+        dice.style.transform = initialRotation;
 
         diceContainer.appendChild(dice);
 
+        // Ensure the browser fully processes the 3D cube before showing it
         requestAnimationFrame(() => {
             setTimeout(() => {
+                dice.style.display = "flex"; // Now it's fully 3D, show it
                 dice.style.transition = "transform 1.5s ease-out, top 1s ease-out, opacity 0.5s ease-in";
                 dice.style.opacity = "1";
                 dice.style.top = `${Math.random() * 50 + 20}%`;
                 dice.style.left = `${Math.random() * 50 + 20}%`;
 
-                // Apply continuous rolling effect while falling
+                // Apply rolling effect while falling
                 dice.style.transform = `rotateX(${Math.random() * 1440}deg) rotateY(${Math.random() * 1440}deg) rotateZ(${Math.random() * 1440}deg)`;
 
                 setTimeout(() => {
@@ -55,7 +57,7 @@ document.getElementById("rollDice").addEventListener("click", function() {
                     ];
                     dice.style.transform = rotations[diceValue - 1];
                 }, 1200); // Ensure it fully settles after rolling
-            }, 10); // Small delay to force full 3D rendering before animation starts
+            }, 50); // Slight delay to allow full 3D processing before animation
         });
     }
 });
