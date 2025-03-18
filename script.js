@@ -23,8 +23,7 @@ document.getElementById("rollDice").addEventListener("click", function() {
         dice.style.width = "50px";
         dice.style.height = "50px";
         dice.style.position = "absolute";
-        dice.style.top = "-100px"; // Start above the table
-        dice.style.opacity = "1"; // Ensure dice are visible immediately
+        dice.style.opacity = "1"; // Ensure visibility
 
         // Set an initial 3D rotation
         const initialRotation = `rotateX(${Math.random() * 360}deg) rotateY(${Math.random() * 360}deg) rotateZ(${Math.random() * 360}deg)`;
@@ -32,11 +31,19 @@ document.getElementById("rollDice").addEventListener("click", function() {
 
         diceContainer.appendChild(dice);
 
+        // Generate a position inside the table
+        let topPosition = Math.random() * (diceContainer.clientHeight - 60);
+        let leftPosition = Math.random() * (diceContainer.clientWidth - 60);
+
+        // Convert to px for accurate dragging
+        dice.style.top = `${topPosition}px`;
+        dice.style.left = `${leftPosition}px`;
+
         // Animate the dice falling and rolling
         requestAnimationFrame(() => {
             dice.style.transition = "transform 1.5s ease-out, top 1s ease-out, left 1s ease-out";
-            dice.style.top = `${Math.random() * 50 + 20}%`;
-            dice.style.left = `${Math.random() * 50 + 20}%`;
+            dice.style.top = `${topPosition}px`;
+            dice.style.left = `${leftPosition}px`;
 
             // Apply rolling effect while falling
             const rollingRotation = `rotateX(${Math.random() * 1440}deg) rotateY(${Math.random() * 1440}deg) rotateZ(${Math.random() * 1440}deg)`;
@@ -69,18 +76,33 @@ function enableDrag(dice) {
         isDragging = true;
         offsetX = e.clientX - dice.getBoundingClientRect().left;
         offsetY = e.clientY - dice.getBoundingClientRect().top;
-        dice.style.transition = "none"; // Disable transitions while dragging
+        dice.style.transition = "none"; // Disable transition while dragging
     });
 
     document.addEventListener("mousemove", (e) => {
         if (isDragging) {
-            dice.style.left = `${e.clientX - offsetX}px`;
-            dice.style.top = `${e.clientY - offsetY}px`;
+            const container = document.getElementById("diceContainer");
+
+            // Ensure dice stay within bounds
+            let newX = e.clientX - offsetX;
+            let newY = e.clientY - offsetY;
+
+            let containerRect = container.getBoundingClientRect();
+            let diceRect = dice.getBoundingClientRect();
+
+            // Prevent dragging outside the container
+            if (newX < containerRect.left) newX = containerRect.left;
+            if (newX + diceRect.width > containerRect.right) newX = containerRect.right - diceRect.width;
+            if (newY < containerRect.top) newY = containerRect.top;
+            if (newY + diceRect.height > containerRect.bottom) newY = containerRect.bottom - diceRect.height;
+
+            dice.style.left = `${newX - containerRect.left}px`;
+            dice.style.top = `${newY - containerRect.top}px`;
         }
     });
 
     document.addEventListener("mouseup", () => {
         isDragging = false;
-        dice.style.transition = "transform 0.2s ease-out"; // Re-enable transitions
+        dice.style.transition = "transform 0.2s ease-out"; // Re-enable smooth transitions
     });
 }
