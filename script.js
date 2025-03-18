@@ -16,9 +16,8 @@ document.getElementById("rollDice").addEventListener("click", function() {
             dice.appendChild(faceDiv);
         });
 
-        // Force instant 3D rendering
+        // Ensure dice are fully in 3D
         dice.style.transformStyle = "preserve-3d";
-        dice.style.willChange = "transform"; // Tell the browser to prioritize 3D processing
         dice.style.width = "50px";
         dice.style.height = "50px";
         dice.style.position = "absolute";
@@ -31,30 +30,28 @@ document.getElementById("rollDice").addEventListener("click", function() {
 
         diceContainer.appendChild(dice);
 
-        // Delay the animation start slightly to ensure 3D rendering is fully applied
-        setTimeout(() => {
-            requestAnimationFrame(() => {
-                dice.style.transition = "transform 1.5s ease-out, top 1s ease-out";
-                dice.style.top = `${Math.random() * 50 + 20}%`;
-                dice.style.left = `${Math.random() * 50 + 20}%`;
+        // Animate the dice falling and rolling
+        requestAnimationFrame(() => {
+            dice.style.transition = "transform 1.5s ease-out, top 1s ease-out";
+            dice.style.top = `${Math.random() * 50 + 20}%`;
+            dice.style.left = `${Math.random() * 50 + 20}%`;
 
-                // Apply rolling effect while falling
-                const rollingRotation = `rotateX(${Math.random() * 1440}deg) rotateY(${Math.random() * 1440}deg) rotateZ(${Math.random() * 1440}deg)`;
-                dice.style.transform = rollingRotation;
+            // Apply rolling effect while falling
+            const rollingRotation = `rotateX(${Math.random() * 1440}deg) rotateY(${Math.random() * 1440}deg) rotateZ(${Math.random() * 1440}deg)`;
+            dice.style.transform = rollingRotation;
 
-                setTimeout(() => {
-                    // Final position and rotation
-                    const rotations = [
-                        "rotateX(0deg) rotateY(0deg)",
-                        "rotateX(180deg) rotateY(0deg)",
-                        "rotateX(0deg) rotateY(-90deg)",
-                        "rotateX(0deg) rotateY(90deg)",
-                        "rotateX(90deg) rotateY(0deg)",
-                        "rotateX(-90deg) rotateY(0deg)"
-                    ];
-                    dice.style.transform = rotations[diceValue - 1];
-                }, 1500); // Ensure it fully settles after rolling
-            });
-        }, 0); // Tiny delay ensures 3D cube is fully built before animation starts
+            setTimeout(() => {
+                // Final position and rotation
+                const rotations = [
+                    "rotateX(0deg) rotateY(0deg)",
+                    "rotateX(180deg) rotateY(0deg)",
+                    "rotateX(0deg) rotateY(-90deg)",
+                    "rotateX(0deg) rotateY(90deg)",
+                    "rotateX(90deg) rotateY(0deg)",
+                    "rotateX(-90deg) rotateY(0deg)"
+                ];
+                dice.style.transform = rotations[diceValue - 1];
+            }, 1500); // Ensure it fully settles after rolling
+        });
     }
 });
