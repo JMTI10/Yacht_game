@@ -34,7 +34,7 @@ body {
     align-items: center;
     position: relative;
     overflow: hidden;
-    perspective: 1200px; /* Ensure depth effect applies to dice */
+    perspective: 1200px;
 }
 
 button {

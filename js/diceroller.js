@@ -4,7 +4,6 @@ function rollAllDice(container, diceCount) {
     }
 }
 
-// Function to create and animate a single die
 function createDice(container) {
     const diceValue = Math.floor(Math.random() * 6) + 1;
     const dice = document.createElement("div");
@@ -18,14 +17,14 @@ function createDice(container) {
         dice.appendChild(faceDiv);
     });
 
-    // Ensure dice are fully in 3D from the start
+    // Ensure dice are fully in 3D
     dice.style.transformStyle = "preserve-3d";
-    dice.style.willChange = "transform, opacity"; // Pre-render 3D
+    dice.style.willChange = "transform, opacity";
     dice.style.width = "50px";
     dice.style.height = "50px";
     dice.style.position = "absolute";
-    dice.style.top = "-100px"; // Start above the table
-    dice.style.opacity = "1"; // Ensure dice are visible immediately
+    dice.style.top = "-100px";
+    dice.style.opacity = "1";
 
     // Set an initial 3D rotation to avoid 2D appearance
     const initialRotation = `rotateX(${Math.random() * 360}deg) rotateY(${Math.random() * 360}deg) rotateZ(${Math.random() * 360}deg)`;
