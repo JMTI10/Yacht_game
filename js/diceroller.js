@@ -27,8 +27,8 @@ function createDice(container) {
     dice.style.top = "-100px";
     dice.style.opacity = "1";
 
-    // Set an initial 3D rotation to avoid 2D appearance
-    const initialRotation = `rotateX(${Math.random() * 360}deg) rotateY(${Math.random() * 360}deg) rotateZ(${Math.random() * 360}deg)`;
+    // Set a 3D rotation before movement starts
+    const initialRotation = `rotateX(${Math.random() * 45}deg) rotateY(${Math.random() * 45}deg) rotateZ(${Math.random() * 45}deg)`;
     dice.style.transform = initialRotation;
 
     container.appendChild(dice);
@@ -45,7 +45,7 @@ function rollDice(dice, diceValue) {
         dice.style.left = `${Math.random() * 50 + 20}%`;
 
         // Apply rolling effect while falling
-        const rollingRotation = `rotateX(${Math.random() * 1440}deg) rotateY(${Math.random() * 1440}deg) rotateZ(${Math.random() * 1440}deg)`;
+        const rollingRotation = `rotateX(${Math.random() * 720 + 720}deg) rotateY(${Math.random() * 720 + 720}deg) rotateZ(${Math.random() * 720}deg)`;
         dice.style.transform = rollingRotation;
 
         setTimeout(() => {
@@ -59,6 +59,6 @@ function rollDice(dice, diceValue) {
                 "rotateX(-90deg) rotateY(0deg)"
             ];
             dice.style.transform = rotations[diceValue - 1];
-        }, 1500);
+        }, 1500); // Ensure it fully settles after rolling
     });
 }
