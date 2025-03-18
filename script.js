@@ -22,18 +22,17 @@ document.getElementById("rollDice").addEventListener("click", function() {
         dice.style.height = "50px";
         dice.style.position = "absolute";
         dice.style.top = "-100px";
-        dice.style.opacity = "1"; // Ensure dice are visible immediately
+        dice.style.opacity = "1"; // Always visible from the start
 
-        // Pre-set a strong 3D transformation to avoid any 2D appearance
+        // Pre-set a strong 3D transformation to prevent 2D appearance
         const initialRotation = `rotateX(${Math.random() * 360}deg) rotateY(${Math.random() * 360}deg) rotateZ(${Math.random() * 360}deg)`;
         dice.style.transform = initialRotation;
 
         diceContainer.appendChild(dice);
 
-        // Force the browser to process 3D before starting animation
+        // Ensure 3D rendering before animation starts
         requestAnimationFrame(() => {
-            setTimeout(() => {
-                // Now the dice are guaranteed to be in 3D, start the animation
+            requestAnimationFrame(() => {
                 dice.style.transition = "transform 1.5s ease-out, top 1s ease-out";
                 dice.style.top = `${Math.random() * 50 + 20}%`;
                 dice.style.left = `${Math.random() * 50 + 20}%`;
@@ -53,8 +52,8 @@ document.getElementById("rollDice").addEventListener("click", function() {
                         "rotateX(-90deg) rotateY(0deg)"
                     ];
                     dice.style.transform = rotations[diceValue - 1];
-                }, 1200); // Ensure it fully settles after rolling
-            }, 50); // Small delay to let browser fully process 3D before animation
+                }, 1500); // Ensure it fully settles after rolling
+            });
         });
     }
 });
