@@ -1,8 +1,7 @@
 document.getElementById("rollDice").addEventListener("click", function() {
-    console.log("Button Clicked!");
     const diceContainer = document.getElementById("diceContainer");
     diceContainer.innerHTML = ""; // Clear previous dice
-
+    
     const diceCount = 5;
     for (let i = 0; i < diceCount; i++) {
         const diceValue = Math.floor(Math.random() * 6) + 1;
@@ -17,13 +16,13 @@ document.getElementById("rollDice").addEventListener("click", function() {
             dice.appendChild(faceDiv);
         });
 
-        // Ensure dice are fully in 3D
+        // Ensure dice are fully in 3D from the start
         dice.style.transformStyle = "preserve-3d";
         dice.style.width = "50px";
         dice.style.height = "50px";
         dice.style.position = "absolute";
         dice.style.top = "-100px"; // Start above the table
-        dice.style.opacity = "1"; // Ensure visibility
+        dice.style.opacity = "1"; // Ensure dice are visible immediately
 
         // Set an initial 3D rotation to avoid 2D appearance
         const initialRotation = `rotateX(${Math.random() * 360}deg) rotateY(${Math.random() * 360}deg) rotateZ(${Math.random() * 360}deg)`;
