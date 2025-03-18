@@ -46,7 +46,12 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    perspective: 1000px;
+    cursor: grab; /* Shows grab cursor */
+    user-select: none; /* Prevents text selection while dragging */
+}
+
+.dice:active {
+    cursor: grabbing;
 }
 
 .dice div {

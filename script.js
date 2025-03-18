@@ -1,12 +1,14 @@
 document.getElementById("rollDice").addEventListener("click", function() {
     const diceContainer = document.getElementById("diceContainer");
     diceContainer.innerHTML = ""; // Clear previous dice
-    
+
     const diceCount = 5;
+
     for (let i = 0; i < diceCount; i++) {
         const diceValue = Math.floor(Math.random() * 6) + 1;
         const dice = document.createElement("div");
         dice.classList.add("dice");
+        dice.setAttribute("draggable", "true"); // Make dice draggable
 
         const faces = ["front", "back", "left", "right", "top", "bottom"];
         faces.forEach((face, index) => {
@@ -24,7 +26,7 @@ document.getElementById("rollDice").addEventListener("click", function() {
         dice.style.top = "-100px"; // Start above the table
         dice.style.opacity = "1"; // Ensure dice are visible immediately
 
-        // Set an initial 3D rotation to avoid 2D appearance
+        // Set an initial 3D rotation
         const initialRotation = `rotateX(${Math.random() * 360}deg) rotateY(${Math.random() * 360}deg) rotateZ(${Math.random() * 360}deg)`;
         dice.style.transform = initialRotation;
 
@@ -32,7 +34,7 @@ document.getElementById("rollDice").addEventListener("click", function() {
 
         // Animate the dice falling and rolling
         requestAnimationFrame(() => {
-            dice.style.transition = "transform 1.5s ease-out, top 1s ease-out";
+            dice.style.transition = "transform 1.5s ease-out, top 1s ease-out, left 1s ease-out";
             dice.style.top = `${Math.random() * 50 + 20}%`;
             dice.style.left = `${Math.random() * 50 + 20}%`;
 
@@ -51,7 +53,34 @@ document.getElementById("rollDice").addEventListener("click", function() {
                     "rotateX(-90deg) rotateY(0deg)"
                 ];
                 dice.style.transform = rotations[diceValue - 1];
+
+                // Enable dragging after the dice have landed
+                enableDrag(dice);
             }, 1500); // Ensure it fully settles after rolling
         });
     }
 });
+
+// Function to enable dragging
+function enableDrag(dice) {
+    let offsetX, offsetY, isDragging = false;
+
+    dice.addEventListener("mousedown", (e) => {
+        isDragging = true;
+        offsetX = e.clientX - dice.getBoundingClientRect().left;
+        offsetY = e.clientY - dice.getBoundingClientRect().top;
+        dice.style.transition = "none"; // Disable transitions while dragging
+    });
+
+    document.addEventListener("mousemove", (e) => {
+        if (isDragging) {
+            dice.style.left = `${e.clientX - offsetX}px`;
+            dice.style.top = `${e.clientY - offsetY}px`;
+        }
+    });
+
+    document.addEventListener("mouseup", () => {
+        isDragging = false;
+        dice.style.transition = "transform 0.2s ease-out"; // Re-enable transitions
+    });
+}
