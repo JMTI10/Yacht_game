@@ -43,7 +43,6 @@ body {
     position: absolute;
     transform-style: preserve-3d;
     opacity: 0;
-    display: none; /* Prevent any rendering until fully ready */
     justify-content: center;
     align-items: center;
 }
