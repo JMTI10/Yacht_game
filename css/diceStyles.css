@@ -25,10 +25,9 @@
     transform-style: preserve-3d !important; /* Ensure faces render in 3D */
 }
 
-.front  { transform: translateZ(25px) !important; }
-.back   { transform: rotateY(180deg) translateZ(25px) !important; }
-.left   { transform: rotateY(-90deg) translateZ(25px) !important; }
-.right  { transform: rotateY(90deg) translateZ(25px) !important; }
-.top    { transform: rotateX(90deg) translateZ(25px) !important; }
-.bottom { transform: rotateX(-90deg) translateZ(25px) !important; }
-
+.front  { transform: translateZ(30px) !important; }
+.back   { transform: rotateY(180deg) translateZ(30px) !important; }
+.left   { transform: rotateY(-90deg) translateZ(30px) !important; }
+.right  { transform: rotateY(90deg) translateZ(30px) !important; }
+.top    { transform: rotateX(90deg) translateZ(30px) !important; }
+.bottom { transform: rotateX(-90deg) translateZ(30px) !important; }

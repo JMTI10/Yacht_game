@@ -1,10 +1,3 @@
-function rollAllDice(container, diceCount) {
-    for (let i = 0; i < diceCount; i++) {
-        createDice(container);
-    }
-}
-
-// Function to create and animate a single die
 function createDice(container) {
     const diceValue = Math.floor(Math.random() * 6) + 1;
     const dice = document.createElement("div");
@@ -33,32 +26,11 @@ function createDice(container) {
 
     container.appendChild(dice);
 
+    // Apply FORCE 3D Rendering in JavaScript
+    requestAnimationFrame(() => {
+        dice.style.transformStyle = "preserve-3d";
+    });
+
     // Start rolling animation
     rollDice(dice, diceValue);
-}
-
-// Function to animate dice rolling
-function rollDice(dice, diceValue) {
-    requestAnimationFrame(() => {
-        dice.style.transition = "transform 1.5s ease-out, top 1s ease-out";
-        dice.style.top = `${Math.random() * 50 + 20}%`;
-        dice.style.left = `${Math.random() * 50 + 20}%`;
-
-        // Apply rolling effect while falling
-        const rollingRotation = `rotateX(${Math.random() * 720 + 720}deg) rotateY(${Math.random() * 720 + 720}deg) rotateZ(${Math.random() * 720}deg)`;
-        dice.style.transform = rollingRotation;
-
-        setTimeout(() => {
-            // Final position and rotation
-            const rotations = [
-                "rotateX(0deg) rotateY(0deg)",
-                "rotateX(180deg) rotateY(0deg)",
-                "rotateX(0deg) rotateY(-90deg)",
-                "rotateX(0deg) rotateY(90deg)",
-                "rotateX(90deg) rotateY(0deg)",
-                "rotateX(-90deg) rotateY(0deg)"
-            ];
-            dice.style.transform = rotations[diceValue - 1];
-        }, 1500); // Ensure it fully settles after rolling
-    });
 }
