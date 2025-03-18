@@ -1,9 +1,10 @@
 .dice {
     width: 50px;
     height: 50px;
+    background-color: red !important; /* Temporary Debugging Color */
     position: absolute;
-    transform-style: preserve-3d !important; /* FORCE 3D */
-    display: flex;
+    transform-style: preserve-3d !important;
+    display: flex !important;
     justify-content: center;
     align-items: center;
     will-change: transform, opacity;
