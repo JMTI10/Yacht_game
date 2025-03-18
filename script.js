@@ -1,4 +1,5 @@
 document.getElementById("rollDice").addEventListener("click", function() {
+    console.log("Button Clicked!");
     const diceContainer = document.getElementById("diceContainer");
     diceContainer.innerHTML = ""; // Clear previous dice
 
