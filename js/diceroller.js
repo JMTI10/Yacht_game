@@ -11,6 +11,15 @@ function createDice(container) {
         dice.appendChild(faceDiv);
     });
 
+    console.log("✅ diceroller.js is loaded!"); // Debugging log
+    function rollAllDice(container, diceCount) {
+        console.log("🔄 rollAllDice called!"); // Debugging log
+        for (let i = 0; i < diceCount; i++) {
+            createDice(container);
+        }
+    }
+    
+
     // Ensure dice are fully in 3D from the start
     dice.style.transformStyle = "preserve-3d";
     dice.style.willChange = "transform, opacity";
