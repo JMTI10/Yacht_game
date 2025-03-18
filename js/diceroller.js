@@ -4,6 +4,7 @@ function rollAllDice(container, diceCount) {
     }
 }
 
+// Function to create and animate a single die
 function createDice(container) {
     const diceValue = Math.floor(Math.random() * 6) + 1;
     const dice = document.createElement("div");
@@ -17,7 +18,7 @@ function createDice(container) {
         dice.appendChild(faceDiv);
     });
 
-    // Ensure dice are fully in 3D
+    // Ensure dice are fully in 3D from the start
     dice.style.transformStyle = "preserve-3d";
     dice.style.willChange = "transform, opacity";
     dice.style.width = "50px";
