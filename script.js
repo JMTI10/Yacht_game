@@ -16,27 +16,24 @@ document.getElementById("rollDice").addEventListener("click", function() {
             dice.appendChild(faceDiv);
         });
 
-        // Ensure dice are fully in 3D from the start
+        // Force instant 3D rendering
         dice.style.transformStyle = "preserve-3d";
+        dice.style.willChange = "transform"; // Tell the browser to prioritize 3D processing
         dice.style.width = "50px";
         dice.style.height = "50px";
         dice.style.position = "absolute";
-        dice.style.top = "-100px";
-        dice.style.opacity = "0"; // Start invisible
+        dice.style.top = "-100px"; // Start above the table
+        dice.style.opacity = "1"; // Ensure visibility
 
-        // Pre-set a strong 3D transformation to prevent 2D appearance
+        // Set an initial 3D rotation to avoid 2D appearance
         const initialRotation = `rotateX(${Math.random() * 360}deg) rotateY(${Math.random() * 360}deg) rotateZ(${Math.random() * 360}deg)`;
         dice.style.transform = initialRotation;
 
-        // Append the dice to the container
         diceContainer.appendChild(dice);
 
-        // Ensure the browser processes the dice before applying animations
-        requestAnimationFrame(() => {
-            dice.getBoundingClientRect(); // Force reflow to ensure rendering
-
-            setTimeout(() => {
-                dice.style.opacity = "1"; // Make visible
+        // Delay the animation start slightly to ensure 3D rendering is fully applied
+        setTimeout(() => {
+            requestAnimationFrame(() => {
                 dice.style.transition = "transform 1.5s ease-out, top 1s ease-out";
                 dice.style.top = `${Math.random() * 50 + 20}%`;
                 dice.style.left = `${Math.random() * 50 + 20}%`;
@@ -57,7 +54,7 @@ document.getElementById("rollDice").addEventListener("click", function() {
                     ];
                     dice.style.transform = rotations[diceValue - 1];
                 }, 1500); // Ensure it fully settles after rolling
-            }, 50); // Small delay to allow the browser to fully render the dice
-        });
+            });
+        }, 0); // Tiny delay ensures 3D cube is fully built before animation starts
     }
 });
