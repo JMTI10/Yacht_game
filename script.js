@@ -55,3 +55,17 @@ document.getElementById("rollDice").addEventListener("click", function() {
         });
     }
 });
+
+document.getElementById("rollDice").addEventListener("click", function() {
+    const diceContainer = document.getElementById("diceContainer");
+    console.log("Dice container found:", !!diceContainer); // Check if it exists
+    diceContainer.innerHTML = ""; // Clear previous dice
+
+    const testDice = document.createElement("div");
+    testDice.textContent = "TEST DICE"; // Simple text test
+    testDice.style.width = "100px";
+    testDice.style.height = "100px";
+    testDice.style.background = "red";
+    diceContainer.appendChild(testDice);
+});
+
