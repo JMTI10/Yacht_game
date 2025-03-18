@@ -59,6 +59,6 @@ function rollDice(dice, diceValue) {
                 "rotateX(-90deg) rotateY(0deg)"
             ];
             dice.style.transform = rotations[diceValue - 1];
-        }, 1500); // Ensure it fully settles after rolling
+        }, 1500);
     });
 }

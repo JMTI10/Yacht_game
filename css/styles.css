@@ -34,7 +34,7 @@ body {
     align-items: center;
     position: relative;
     overflow: hidden;
-    perspective: 1200px;
+    perspective: 1500px !important; /* Ensure dice render in 3D */
 }
 
 button {
